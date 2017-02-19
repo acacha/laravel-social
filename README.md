@@ -7,35 +7,46 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-Social Login/Register implementation using Laravel Socialite and AdminLTE Laravel package.
-
-## Structure
-
-If any of the following are applicable to your project, then the directory structure should follow industry best practises by being named the following.
-
-```
-bin/        
-config/
-src/
-tests/
-vendor/
-```
-
+A Laravel 5 package for social Login/Register implementation using Laravel Socialite and AdminLTE Laravel package.
 
 ## Install
 
-Via Composer
+Use Composer:
 
 ``` bash
 $ composer require acacha/laravel-social
 ```
 
+Add service provider to providers array in your **config/app.php** file:
+
+```
+Acacha\LaravelSocial\Providers\LaravelSocialServiceProvider::class
+```
+
 ## Usage
 
-``` php
-$skeleton = new Acacha\LaravelSocial();
-echo $skeleton->echoPhrase('Hello, League!');
+Social Providers configuration:
+
 ```
+php artisan acacha:social
+```
+
+Or just after:
+
+```
+adminlte-laravel social
+```
+
+Execute CLI wizard to create .env an services in `config/services.php`.
+
+First question?
+
+Which social network do you want to configure([github,facebook,...])?
+
+'''Github'''
+
+Steps:
+- Register new OAuth Application at https://github.com/settings/applications/new
 
 ## Change log
 

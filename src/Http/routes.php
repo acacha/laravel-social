@@ -6,5 +6,6 @@
  * RouteServiceProvider
  */
 Route::group(['middleware' => 'web'], function () {
-//    Route::get('/home', 'HomeController@index');
+    Route::get('auth/{socialProvider}', 'SocialProvidersController@redirectToProvider');
+    Route::get('auth/{socialProvider}/callback', 'SocialProvidersController@callback');
 });
