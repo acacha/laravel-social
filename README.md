@@ -1,11 +1,17 @@
 # laravel-social
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
+[![Total Downloads](https://poser.pugx.org/acacha/laravel-social/downloads.png)](https://packagist.org/packages/acacha/laravel-social)
+[![Monthly Downloads](https://poser.pugx.org/acacha/laravel-social/d/monthly)](https://packagist.org/packages/acacha/laravel-social)
+[![Daily Downloads](https://poser.pugx.org/acacha/laravel-social/d/daily)](https://packagist.org/packages/acacha/laravel-social)
+[![Latest Stable Version](https://poser.pugx.org/acacha/laravel-social/v/stable.png)](https://packagist.org/packages/acacha/laravel-social)
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
+[![StyleCI](https://styleci.io/repos/82290394/shield)](https://styleci.io/repos/82290394)
+
 
 A Laravel 5 package for social Login/Register implementation using Laravel Socialite and AdminLTE Laravel package.
 
