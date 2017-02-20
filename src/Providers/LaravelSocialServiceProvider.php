@@ -3,13 +3,11 @@
 namespace Acacha\LaravelSocial\Providers;
 
 use Acacha\LaravelSocial\Facades\LaravelSocial;
+use Acacha\LaravelSocial\Repositories\EloquentSocialUserRepository;
+use Acacha\LaravelSocial\Repositories\SocialUserRepository;
 use Acacha\LaravelSocial\Services\ConfigureSocialServicesManager;
 use Acacha\LaravelSocial\Services\LaravelSocialiteService;
 use Acacha\LaravelSocial\Services\OAuthApp;
-use Acacha\LaravelSocial\SocialProviders\GithubSocialProvider;
-use Acacha\LaravelSocial\SocialProviders\FacebookSocialProvider;
-use Acacha\LaravelSocial\SocialProviders\TwitterSocialProvider;
-use Acacha\LaravelSocial\SocialProviders\GoogleSocialProvider;
 use Acacha\LaravelSocial\SocialProviders\SocialProviderManager;
 use Illuminate\Console\DetectsApplicationNamespace;
 use Illuminate\Support\ServiceProvider;
@@ -21,6 +19,13 @@ use Laravel\Socialite\SocialiteServiceProvider;
 class LaravelSocialServiceProvider extends ServiceProvider
 {
     use DetectsApplicationNamespace;
+
+    /**
+     * Enabled social providers.
+     *
+     * @var array
+     */
+    public $enabled = ['Github','Facebook','Google','Twitter'];
 
     /**
      * Register the application services.
@@ -50,6 +55,8 @@ class LaravelSocialServiceProvider extends ServiceProvider
         $this->registerSocialProviders();
 
         $this->registerLaravelSocialiteService();
+
+        $this->registerSocialUsersRepository();
     }
 
     /**
@@ -58,7 +65,7 @@ class LaravelSocialServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->defineRoutes();
-//        $this->publishHomeController();
+        $this->loadMigrations();
     }
 
     /**
@@ -73,14 +80,6 @@ class LaravelSocialServiceProvider extends ServiceProvider
                 require __DIR__.'/../Http/routes.php';
             });
         }
-    }
-
-    /**
-     * Publish Home Controller.
-     */
-    private function publishHomeController()
-    {
-        $this->publishes(LaravelSocial::homeController(), 'adminlte');
     }
 
     /**
@@ -139,17 +138,31 @@ class LaravelSocialServiceProvider extends ServiceProvider
      */
     private function registerSocialProviders()
     {
-        $this->app->bind('GithubSocialProvider', function ($app) {
-            return new GithubSocialProvider($app->make('Laravel\Socialite\Contracts\Factory'));
-        });
-        $this->app->bind('FacebookSocialProvider', function ($app) {
-            return new FacebookSocialProvider($app->make('Laravel\Socialite\Contracts\Factory'));
-        });
-        $this->app->bind('TwitterSocialProvider', function ($app) {
-            return new TwitterSocialProvider($app->make('Laravel\Socialite\Contracts\Factory'));
-        });
-        $this->app->bind('GoogleSocialProvider', function ($app) {
-            return new GoogleSocialProvider($app->make('Laravel\Socialite\Contracts\Factory'));
-        });
+        foreach ($this->enabled as $provider) {
+            $providerClass =  $provider . 'SocialProvider';
+            $this->app->bind($providerClass, function ($app) use ($providerClass) {
+                $providerClassWithNamespace = 'Acacha\LaravelSocial\SocialProviders\\' . $providerClass;
+                return new $providerClassWithNamespace($app->make('Laravel\Socialite\Contracts\Factory'));
+            });
+        }
+    }
+
+    /**
+     * Load migrations.
+     */
+    private function loadMigrations()
+    {
+        $this->loadMigrationsFrom( LARAVELSOCIAL_PATH .'/database/migrations');
+    }
+
+    /**
+     * Register social users repository.
+     */
+    private function registerSocialUsersRepository()
+    {
+        $this->app->bind(
+            SocialUserRepository::class,
+            EloquentSocialUserRepository::class
+        );
     }
 }

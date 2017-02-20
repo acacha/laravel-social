@@ -40,7 +40,7 @@ abstract class SocialProvider implements \Acacha\LaravelSocial\Contracts\SocialP
     /**
      * Redirect the user to the authentication page for the provider.
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Laravel\Socialite\Contracts\User
      */
     public function user()
     {

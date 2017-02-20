@@ -9,9 +9,8 @@ namespace Acacha\LaravelSocial\Services;
  */
 abstract class ConfigureSocialLogin
 {
-
     /**
-     * Laravel console commmand
+     * Laravel console commmand.
      *
      * @var
      */
@@ -43,8 +42,6 @@ abstract class ConfigureSocialLogin
 
     /**
      * Run social network configuration.
-     *
-     * @param $name
      */
     public function execute()
     {
@@ -64,6 +61,9 @@ abstract class ConfigureSocialLogin
         $this->command->info('Then ask the following questions:');
     }
 
+    /**
+     * Obtain OAuth client data.
+     */
     protected function obtainOAuthClientData()
     {
         $oauth = resolve(\Acacha\LaravelSocial\Services\OAuthApp::class);

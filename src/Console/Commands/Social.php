@@ -3,7 +3,6 @@
 namespace Acacha\LaravelSocial\Console\Commands;
 
 use Acacha\LaravelSocial\Contracts\ConfigureSocialServicesFactory;
-use App;
 use Illuminate\Console\Command;
 
 /**
@@ -44,7 +43,6 @@ class Social extends Command
         $this->configurator = $configurator;
         parent::__construct();
     }
-
 
     /**
      * Execute the console command.

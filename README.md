@@ -9,7 +9,6 @@
 [![Build Status][ico-travis]][link-travis]
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
-[![Total Downloads][ico-downloads]][link-downloads]
 [![StyleCI](https://styleci.io/repos/82290394/shield)](https://styleci.io/repos/82290394)
 
 
@@ -53,6 +52,11 @@ Which social network do you want to configure([github,facebook,...])?
 
 Steps:
 - Register new OAuth Application at https://github.com/settings/applications/new
+
+### Enable/disable social providers
+
+At class `LaravelSocialServiceProvider` you can modify `$enabled` field to change enabled social providers.
+Also remember to changes your views to add/remove action/links to social auth.  
 
 ## Change log
 

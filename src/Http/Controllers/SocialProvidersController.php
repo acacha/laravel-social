@@ -3,7 +3,9 @@
 namespace Acacha\LaravelSocial\Http\Controllers;
 
 use Acacha\LaravelSocial\Contracts\Factory as SocialProviderFactory;
-use Illuminate\Http\Request;
+use Acacha\LaravelSocial\Repositories\SocialUserRepository;
+use Illuminate\Contracts\Auth\Factory as AuthFactory;
+use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Routing\Controller;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -16,7 +18,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
  */
 class SocialProvidersController extends Controller
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, RedirectsUsers;
 
     /**
      * Laravel social provider factory.
@@ -26,85 +28,67 @@ class SocialProvidersController extends Controller
     protected $socialProvider;
 
     /**
+     * Laravel auth factory.
+     *
+     * @var \Illuminate\Contracts\Auth\Factory
+     */
+    protected $auth;
+
+    /**
+     * Where to redirect users after login/register.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/home';
+
+    /**
+     * Social user repository.
+     *
+     * @var SocialUserRepository
+     */
+    protected $users;
+
+    /**
      * SocialProvidersController constructor.
      *
-     * @param $socialProvider
+     * @param SocialProviderFactory $socialProvider
+     * @param AuthFactory $auth
+     * @param SocialUserRepository $users
      */
-    public function __construct(SocialProviderFactory $socialProvider)
+    public function __construct(SocialProviderFactory $socialProvider, AuthFactory $auth, SocialUserRepository $users)
     {
         $this->socialProvider = $socialProvider;
+        $this->auth = $auth;
+        $this->users = $users;
     }
 
     /**
      * Redirect to social provider.
      *
      * @param $provider
-     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function redirectToProvider($provider, Request $request)
+    public function redirectToProvider($provider)
     {
-        if ($request->is('auth/register/*')) {
-            $request->session()->flash('origin', 'register');
-        };
         return $this->socialProvider->driver($provider)->redirect();
     }
 
     /**
-     * Obtain the user information from GitHub.
+     * Obtain the user information from social network.
      *
-     * @return Response
+     * @param $provider
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function handleProviderCallback($provider, Request $request)
+    public function handleProviderCallback($provider)
     {
-        if ($request->session()->get('origin', 'login') === 'register') {
-            $this->handleRegister();
-        }
-
-        $this->handleLogin($provider);
-    }
-
-    /**
-     * Return user if exists; create and return if doesn't
-     *
-     * @param $socialUser
-     * @return User
-     */
-    private function findOrCreateUser($socialUser)
-    {
-        if ($authUser = User::where('social_id', $socialUser->id)->first()) {
-            return $authUser;
-        }
-
-        return User::create([
-            'name' => $socialUser->name,
-            'email' => $socialUser->email,
-            'github_id' => $socialUser->id,
-            'avatar' => $socialUser->avatar
-        ]);
-    }
-
-    protected function handleRegister()
-    {
-        dump('todo handle register');
-    }
-
-    protected function handleLogin($provider)
-    {
-        dd($this->socialProvider->driver($provider)->user());
-        //        $this->socialProvider->driver($provider)->handleProviderCallback();
-
         try {
-            //TODO
-            $user = Socialite::driver('github')->user();
+            $user = $this->socialProvider->driver($provider)->user();
         } catch (Exception $e) {
-            return Redirect::to('auth/github');
+            return Redirect::to('auth/' . $provider);
         }
 
-        $authUser = $this->findOrCreateUser($user);
+        $this->auth->login($this->users->provider($provider)->findOrCreateUser($user), true);
 
-        Auth::login($authUser, true);
-
-        return Redirect::to('home');
+        return redirect()->intended($this->redirectPath());
     }
 }
