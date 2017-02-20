@@ -39,5 +39,4 @@ class ConfigureGoogleSocialLogin extends ConfigureSocialLogin
         $this->command->info('Remember to enable Google+ API!');
         $this->command->info('More info at <question>https://developers.google.com/identity/sign-in/web/devconsole-project</question>');
     }
-
 }

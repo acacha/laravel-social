@@ -39,7 +39,7 @@ class LaravelSocialiteService
      * @param StubFileCompiler $compiler
      * @param Filesystem $filesystem
      */
-    public function __construct(StubFileCompiler $compiler,Filesystem $filesystem)
+    public function __construct(StubFileCompiler $compiler, Filesystem $filesystem)
     {
         $this->compiler = $compiler;
         $this->filesystem = $filesystem;
@@ -133,6 +133,4 @@ class LaravelSocialiteService
     {
         return __DIR__ . '/stubs/' . strtolower($this->socialNetwork) . '_env.stub';
     }
-
-
 }

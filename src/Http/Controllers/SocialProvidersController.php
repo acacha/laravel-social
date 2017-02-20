@@ -44,7 +44,9 @@ class SocialProvidersController extends Controller
      */
     public function redirectToProvider($provider, Request $request)
     {
-        if ($request->is('auth/register/*')) $request->session()->flash('origin', 'register');;
+        if ($request->is('auth/register/*')) {
+            $request->session()->flash('origin', 'register');
+        };
         return $this->socialProvider->driver($provider)->redirect();
     }
 
@@ -55,7 +57,9 @@ class SocialProvidersController extends Controller
      */
     public function handleProviderCallback($provider, Request $request)
     {
-        if ($request->session()->get('origin','login') === 'register') $this->handleRegister();
+        if ($request->session()->get('origin', 'login') === 'register') {
+            $this->handleRegister();
+        }
 
         $this->handleLogin($provider);
     }
@@ -82,7 +86,7 @@ class SocialProvidersController extends Controller
 
     protected function handleRegister()
     {
-        dump ('todo handle register');
+        dump('todo handle register');
     }
 
     protected function handleLogin($provider)

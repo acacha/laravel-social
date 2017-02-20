@@ -9,5 +9,4 @@ namespace Acacha\LaravelSocial\Contracts;
  */
 interface ConfigureSocialServicesFactory extends Factory
 {
-
 }

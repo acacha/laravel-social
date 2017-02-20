@@ -34,7 +34,6 @@ abstract class SocialProvider implements \Acacha\LaravelSocial\Contracts\SocialP
      */
     public function redirect()
     {
-
         return $this->socialite->driver($this->name())->redirect();
     }
 
@@ -45,7 +44,6 @@ abstract class SocialProvider implements \Acacha\LaravelSocial\Contracts\SocialP
      */
     public function user()
     {
-
         return $this->socialite->driver($this->name())->user();
     }
 
@@ -54,5 +52,5 @@ abstract class SocialProvider implements \Acacha\LaravelSocial\Contracts\SocialP
      *
      * @return mixed
      */
-    abstract function name();
+    abstract public function name();
 }
