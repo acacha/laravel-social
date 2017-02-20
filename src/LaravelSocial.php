@@ -31,5 +31,4 @@ class LaravelSocial
                 app_path('Http/Controllers/Auth/RegisterController.php'),
         ];
     }
-
 }

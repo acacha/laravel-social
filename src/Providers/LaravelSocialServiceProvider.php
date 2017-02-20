@@ -109,7 +109,7 @@ class LaravelSocialServiceProvider extends ServiceProvider
         $this->app->singleton(\Acacha\LaravelSocial\Contracts\ConfigureSocialServicesFactory::class,
             function ($app) {
                 return new ConfigureSocialServicesManager($app);
-        });
+            });
     }
 
     /**
@@ -152,5 +152,4 @@ class LaravelSocialServiceProvider extends ServiceProvider
             return new GoogleSocialProvider($app->make('Laravel\Socialite\Contracts\Factory'));
         });
     }
-
 }

@@ -69,7 +69,7 @@ abstract class ConfigureSocialLogin
         $oauth = resolve(\Acacha\LaravelSocial\Services\OAuthApp::class);
         $oauth->setId(trim($this->command->ask('OAuth client id?')));
         $oauth->setSecret(trim($this->command->ask('OAuth client secret?')));
-        $oauth->setRedirectUrl(trim($this->command->ask('OAuth client redirect URL?',$this->getDefaultRedirectURL())));
+        $oauth->setRedirectUrl(trim($this->command->ask('OAuth client redirect URL?', $this->getDefaultRedirectURL())));
 
         $service = resolve(\Acacha\LaravelSocial\Services\LaravelSocialiteService::class);
         $service->app($oauth)->social(strtolower($this->name()))->handle();
@@ -93,5 +93,4 @@ abstract class ConfigureSocialLogin
     {
         return;
     }
-
 }

@@ -37,5 +37,4 @@ class ConfigureTwitterSocialLogin extends ConfigureSocialLogin
     {
         $this->command->info("Retrieve your api keys at tab (Keys and Access Tokens). In tab permissions check 'Request email addresses from users' checkbox");
     }
-
 }

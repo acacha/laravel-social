@@ -37,5 +37,4 @@ class ConfigureFacebookSocialLogin extends ConfigureSocialLogin
     {
         $this->command->info('Press button <question>Add new App</question>.');
     }
-
 }

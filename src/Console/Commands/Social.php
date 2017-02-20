@@ -55,9 +55,9 @@ class Social extends Command
     {
         $continue = true;
         while ($continue) {
-            $socialNetwork = $this->choice('Which social network you wish to configure?',$this->configurator->drivers,0);
+            $socialNetwork = $this->choice('Which social network you wish to configure?', $this->configurator->drivers, 0);
             $this->configurator->driver($socialNetwork)->command($this)->execute();
-            $continue = $this->confirm('Do you wish to configure other social networks?',true);
+            $continue = $this->confirm('Do you wish to configure other social networks?', true);
         }
     }
 }

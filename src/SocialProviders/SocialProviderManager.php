@@ -90,5 +90,4 @@ class SocialProviderManager extends Manager implements Factory
     {
         return $provider = ucfirst($provider) . 'SocialProvider';
     }
-
 }
