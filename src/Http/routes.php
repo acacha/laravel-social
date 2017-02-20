@@ -7,5 +7,7 @@
  */
 Route::group(['middleware' => 'web'], function () {
     Route::get('auth/{socialProvider}', 'SocialProvidersController@redirectToProvider');
-    Route::get('auth/{socialProvider}/callback', 'SocialProvidersController@callback');
+    Route::get('auth/{socialProvider}/callback', 'SocialProvidersController@handleProviderCallback');
+    Route::get('auth/register/{socialProvider}', 'SocialProvidersController@redirectToProvider');
+    Route::get('auth/register/{socialProvider}/callback', 'SocialProvidersController@handleProviderCallback');
 });

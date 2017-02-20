@@ -2,7 +2,7 @@
 
 namespace Acacha\LaravelSocial\Services;
 
-use Acacha\LaravelSocial\Contracts\Factory;
+use Acacha\LaravelSocial\Contracts\ConfigureSocialServicesFactory as Factory;
 use Illuminate\Support\Manager;
 
 /**
@@ -12,17 +12,19 @@ use Illuminate\Support\Manager;
  */
 class ConfigureSocialServicesManager extends Manager implements Factory
 {
+
     /**
-     * Laravel command
-     * @var \Illuminate\Console\Command
+     * Supported social networks.
+     *
+     * @var array
      */
-    protected $command;
+    public $drivers =  ['Github', 'Facebook','Google','Twitter'];
 
     /**
      * Create a new manager instance.
      *
      * @param  \Illuminate\Foundation\Application  $app
-     * @return void
+     *
      */
     public function __construct($app)
     {
@@ -45,16 +47,33 @@ class ConfigureSocialServicesManager extends Manager implements Factory
      */
     protected function createGithubDriver()
     {
-        return new ConfigureGithubSocialLogin($this->command);
+        return new ConfigureGithubSocialLogin();
     }
 
     /**
-     * @param \Illuminate\Console\Command $command
-     * @return $this
+     * Create an instance of the "facebook" social provider driver.
+     *
      */
-    public function command(\Illuminate\Console\Command $command)
+    protected function createFacebookDriver()
     {
-        $this->command = $command;
-        return $this;
+        return new ConfigureFacebookSocialLogin();
+    }
+
+    /**
+     * Create an instance of the "google" social provider driver.
+     *
+     */
+    protected function createGoogleDriver()
+    {
+        return new ConfigureGoogleSocialLogin();
+    }
+
+    /**
+     * Create an instance of the "twitter" social provider driver.
+     *
+     */
+    protected function createTwitterDriver()
+    {
+        return new ConfigureTwitterSocialLogin();
     }
 }

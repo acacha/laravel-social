@@ -19,4 +19,14 @@ class ConfigureGithubSocialLogin extends ConfigureSocialLogin
     {
         return 'https://github.com/settings/applications/new';
     }
+
+    /**
+     * Social network name.
+     *
+     * @return mixed
+     */
+    protected function name()
+    {
+        return 'github';
+    }
 }

@@ -121,7 +121,7 @@ class LaravelSocialiteService
      */
     private function getSocialiteServiceStubFile()
     {
-        return __DIR__ . '/stubs/' . $this->socialNetwork . '_service.stub';
+        return __DIR__ . '/stubs/' . strtolower($this->socialNetwork) . '_service.stub';
     }
 
     /**
@@ -131,7 +131,7 @@ class LaravelSocialiteService
      */
     private function getSocialiteEnvironmentStubFile()
     {
-        return __DIR__ . '/stubs/' . $this->socialNetwork . '_env.stub';
+        return __DIR__ . '/stubs/' . strtolower($this->socialNetwork) . '_env.stub';
     }
 
 

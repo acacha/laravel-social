@@ -18,37 +18,27 @@ abstract class ConfigureSocialLogin
     protected $command;
 
     /**
-     * Supported social networks.
+     * Info URL about how to register and Oauth Client.
      *
-     * @var array
+     * @return mixed
      */
-    protected $networks =  ['Github', 'Facebook','Google','Twitter'];
+    abstract protected function infoURL();
 
     /**
-     * Current selected social network.
+     * Social network name.
      *
-     * @var
+     * @return mixed
      */
-    protected $socialNetwork;
+    abstract protected function name();
 
     /**
-     * ConfigureSocialLogin constructor.
-     *
-     * @param $command
+     * @param \Illuminate\Console\Command $command
+     * @return $this
      */
-    public function __construct(\Illuminate\Console\Command $command)
+    public function command(\Illuminate\Console\Command $command)
     {
         $this->command = $command;
-    }
-
-    public function execute()
-    {
-        $continue = true;
-        while ($continue) {
-            $this->socialNetwork = $this->command->choice('Which social network you wish to configure?',$this->networks,0);
-            $this->runSocialNetworkConfiguration();
-            $continue = $this->command->confirm('Do you wish to configure other social networks?',true);
-        }
+        return $this;
     }
 
     /**
@@ -56,7 +46,7 @@ abstract class ConfigureSocialLogin
      *
      * @param $name
      */
-    protected function runSocialNetworkConfiguration()
+    public function execute()
     {
         $this->showInfoAboutSocialNetwork();
         $this->obtainOAuthClientData();
@@ -67,8 +57,11 @@ abstract class ConfigureSocialLogin
      */
     protected function showInfoAboutSocialNetwork()
     {
-        $this->command->info('Configuring social network ' . $this->socialNetwork);
-        $this->command->info('Please go to URL <question>' . $this->infoURL() . '</question> and then ask the following questions:');
+        $this->command->info('Configuring social network ' . ucfirst($this->name()) . '...');
+        $this->command->info('Please register a new OAuth app for ' . ucfirst($this->name()) .
+            '. Go to URL <question>' . $this->infoURL() . '</question>');
+        $this->showOptionalAdditionalInfo();
+        $this->command->info('Then ask the following questions:');
     }
 
     protected function obtainOAuthClientData()
@@ -79,15 +72,9 @@ abstract class ConfigureSocialLogin
         $oauth->setRedirectUrl(trim($this->command->ask('OAuth client redirect URL?',$this->getDefaultRedirectURL())));
 
         $service = resolve(\Acacha\LaravelSocial\Services\LaravelSocialiteService::class);
-        $service->app($oauth)->social(strtolower($this->socialNetwork))->handle();
-        $this->command->info(ucfirst($this->socialNetwork) . ' added to config/services.php file');
+        $service->app($oauth)->social(strtolower($this->name()))->handle();
+        $this->command->info(ucfirst($this->name()) . ' added to config/services.php file');
     }
-
-    /**
-     * Info URL about how to register and Oauth Client.
-     * @return mixed
-     */
-    abstract protected function infoURL();
 
     /**
      * Default Redirect URL.
@@ -96,7 +83,15 @@ abstract class ConfigureSocialLogin
      */
     protected function getDefaultRedirectURL()
     {
-       return 'http://localhost:8080/auth/' . strtolower($this->socialNetwork) . '/callback';
+        return 'http://localhost:8080/auth/' . strtolower($this->name()) . '/callback';
+    }
+
+    /**
+     * Show (if needed) additional info.
+     */
+    protected function showOptionalAdditionalInfo()
+    {
+        return;
     }
 
 }

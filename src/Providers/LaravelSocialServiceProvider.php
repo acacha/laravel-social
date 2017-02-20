@@ -2,12 +2,14 @@
 
 namespace Acacha\LaravelSocial\Providers;
 
-use Acacha\Filesystem\Compiler\StubFileCompiler;
 use Acacha\LaravelSocial\Facades\LaravelSocial;
 use Acacha\LaravelSocial\Services\ConfigureSocialServicesManager;
 use Acacha\LaravelSocial\Services\LaravelSocialiteService;
 use Acacha\LaravelSocial\Services\OAuthApp;
 use Acacha\LaravelSocial\SocialProviders\GithubSocialProvider;
+use Acacha\LaravelSocial\SocialProviders\FacebookSocialProvider;
+use Acacha\LaravelSocial\SocialProviders\TwitterSocialProvider;
+use Acacha\LaravelSocial\SocialProviders\GoogleSocialProvider;
 use Acacha\LaravelSocial\SocialProviders\SocialProviderManager;
 use Illuminate\Console\DetectsApplicationNamespace;
 use Illuminate\Support\ServiceProvider;
@@ -138,7 +140,16 @@ class LaravelSocialServiceProvider extends ServiceProvider
     private function registerSocialProviders()
     {
         $this->app->bind('GithubSocialProvider', function ($app) {
-            return new GithubSocialProvider($this->app->make('Laravel\Socialite\Contracts\Factory'));
+            return new GithubSocialProvider($app->make('Laravel\Socialite\Contracts\Factory'));
+        });
+        $this->app->bind('FacebookSocialProvider', function ($app) {
+            return new FacebookSocialProvider($app->make('Laravel\Socialite\Contracts\Factory'));
+        });
+        $this->app->bind('TwitterSocialProvider', function ($app) {
+            return new TwitterSocialProvider($app->make('Laravel\Socialite\Contracts\Factory'));
+        });
+        $this->app->bind('GoogleSocialProvider', function ($app) {
+            return new GoogleSocialProvider($app->make('Laravel\Socialite\Contracts\Factory'));
         });
     }
 

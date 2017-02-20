@@ -28,21 +28,23 @@ class Social extends Command
     protected $description = 'Configure social login in your Laravel app';
 
     /**
-     * Command service.
+     * Social network configurator service.
      *
-     * @var
+     * @var ConfigureSocialServicesFactory
      */
-    protected $service;
+    protected $configurator;
 
     /**
      * Create a new command instance.
      *
-     * @return void
+     * @param ConfigureSocialServicesFactory $configurator
      */
-    public function __construct()
+    public function __construct(ConfigureSocialServicesFactory $configurator)
     {
+        $this->configurator = $configurator;
         parent::__construct();
     }
+
 
     /**
      * Execute the console command.
@@ -51,6 +53,11 @@ class Social extends Command
      */
     public function handle()
     {
-        App::make(ConfigureSocialServicesFactory::class)->command($this)->execute();
+        $continue = true;
+        while ($continue) {
+            $socialNetwork = $this->choice('Which social network you wish to configure?',$this->configurator->drivers,0);
+            $this->configurator->driver($socialNetwork)->command($this)->execute();
+            $continue = $this->confirm('Do you wish to configure other social networks?',true);
+        }
     }
 }
