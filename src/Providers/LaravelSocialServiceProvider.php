@@ -38,6 +38,7 @@ class LaravelSocialServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([\Acacha\LaravelSocial\Console\Commands\Social::class]);
+            $this->commands([\Acacha\LaravelSocial\Console\Commands\MakeSocial::class]);
         }
 
         $this->app->bind('LaravelSocial', function () {
