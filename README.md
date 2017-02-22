@@ -11,52 +11,205 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![StyleCI](https://styleci.io/repos/82290394/shield)](https://styleci.io/repos/82290394)
 
+A Laravel 5 package for **OAuth Social Login/Register** implementation using [Laravel socialite](https://github.com/laravel/socialite) and (optionally) [AdminLTE Laravel package](https://github.com/acacha/adminlte-laravel).
 
-A Laravel 5 package for social Login/Register implementation using Laravel Socialite and AdminLTE Laravel package.
+## Installation
 
-## Install
+## Using adminlte laravel (recommended option)
 
-Use Composer:
+Install [AdminLTE Laravel package](https://github.com/acacha/adminlte-laravel):
+
+```bash
+composer global require "acacha/adminlte-laravel-installer=~3.0"
+laravel new awesome
+cd awesome
+adminlte-laravel install
+adminlte-laravel social
+```
+
+Then optionally you can boostrap you project in your favourite browser using:
+ 
+```bash
+llum boot
+```
+
+## Using composer 
+
+Use Composer, in you Laravel project:
 
 ``` bash
+$ composer global require "acacha/llum=~1.0"
 $ composer require acacha/laravel-social
 ```
 
 Add service provider to providers array in your **config/app.php** file:
 
-```
+```php
 Acacha\LaravelSocial\Providers\LaravelSocialServiceProvider::class
+```
+
+And run command:
+
+```bash
+php artisan make:social
+```
+
+To configure social network providers. 
+
+Finally modify your app views to add links to Social Login using link:
+ 
+```
+http://yourappurl.com/auth/{socialnetwork}
+```
+
+Examples:
+
+```
+http://yourappurl.com/auth/github
+http://yourappurl.com/auth/facebook
+http://yourappurl.com/auth/google
+http://yourappurl.com/auth/twitter
+```
+
+I recommend you to use [AdminLTE Laravel Package](https://github.com/acacha/adminlte-laravel) for a full working Auth scaffolding with Adminlte bootstrap template. See previous section. 
+
+You can also use Laravel default Auth scaffolding running command:
+ 
+```bash
+php artisan make:auth
+```
+
+And manually add button/links to social Login/Register.
+
+### Use llum
+
+You can also use `llum package` command to install this package (see [acacha/llum](https://github.com/acacha/llum)):
+
+```bash
+llum package laravel-social
 ```
 
 ## Usage
 
-Social Providers configuration:
+You can configure Social Providers with command:
 
-```
+```bash
 php artisan acacha:social
+ Which social network you wish to configure? [Github]:
+  [0] Github
+  [1] Facebook
+  [2] Google
+  [3] Twitter
+ > 0
+  
+  Configuring social network Github...
+  Please register a new OAuth app for Github. Go to URL https://github.com/settings/applications/new
+  Then ask the following questions:
+  
+   OAuth client id?:
+   > 3a1fg6ac5437f9f4cebd
+   
+   OAuth client secret?:
+   > 5919185e3fb7024e5b10cedce5cce408893224d         
+   
+   OAuth client redirect URL? [http://localhost:8080/auth/github/callback]:
+   > 
+   
+  File /home/sergi/Code/socialAdminLTEtest/config/app.php already supports llum.
+  Llum is already installed. Skipping...
+  File /home/sergi/Code/socialAdminLTEtest/config/services.php updated.
+  Github added to config/services.php file
+  
+   Do you wish to configure other social networks? (yes/no) [yes]: 
 ```
 
-Or just after:
+This wizard will adapt your `.env` and `config/services.php` files to add your social networks OAuth data.
 
+At this moment command ```php artisan acacha:social``` will not check if you have already configured your social network 
+so be carefull when executing this command in already configured projects (no errors will be thrown but you will have 
+repeated data in your config files). 
+
+## Requirements
+
+Please install [AdminLTE Laravel](https://github.com/acacha/adminlte-laravel):
+
+```bash
+composer global require "acacha/adminlte-laravel-installer=~3.0"
 ```
-adminlte-laravel social
+
+You can also use this package without adminlte but hen you have to install [acacha/llum](https://github.com/acacha/llum) before using this package:
+
+```bash
+composer global require "acacha/llum=~1.0"
 ```
 
-Execute CLI wizard to create .env an services in `config/services.php`.
+This package also requires (all installed using composer):
 
-First question?
+- [Laravel framework](https://github.com/laravel/frameworks)
+- [Laravel socialite](https://github.com/laravel/socialite)
+- [Doctrine dbal](https://github.com/doctrine/dbal)
+- [Acacha filesystem](https://github.com/acacha/filesystem)
 
-Which social network do you want to configure([github,facebook,...])?
+See also related projects:
 
-'''Github'''
+- [AdminLTE Laravel](https://github.com/acacha/adminlte-laravel)
+- [Acacha llum](https://github.com/acacha/llum)
+- [AdminLTE](https://github.com/almasaeed2010/AdminLTE)
 
-Steps:
-- Register new OAuth Application at https://github.com/settings/applications/new
+## Social networks
+
+Laravel social package support by default the following social networks:
+
+- Github
+- Facebook
+- Google
+- Twitter
+
+Laravel social use [Illuminate\Support\Manager](https://laravel.com/api/5.4/Illuminate/Support/Manager.html) so you can create your own driver and register the driver in LaravelSocialServiceProvider.
+
+Please, if you create a new driver feel free to create a Pull Request.
+
+You can enable/disable social providers easily. See following section.
 
 ### Enable/disable social providers
 
 At class `LaravelSocialServiceProvider` you can modify `$enabled` field to change enabled social providers.
-Also remember to changes your views to add/remove action/links to social auth.  
+Also remember to changes your views to add/remove action/links to social auth.
+
+### Github ###
+
+The cli wizard will propose you to go to page:
+
+https://github.com/settings/applications/new
+
+to register new OAuth Application.
+
+### Facebook ###
+
+The cli wizard will propose you to go to page:
+
+https://developers.facebook.com/apps/
+
+to register new OAuth Application
+
+### Google ###
+
+The cli wizard will propose you to go to page:
+
+https://console.developers.google.com
+
+to register new OAuth Application. Please remember to active Google+ API!. 
+
+More info at https://developers.google.com/identity/sign-in/web/devconsole-project .
+
+### Twitter ###
+
+The cli wizard will propose you to go to page:
+
+https://apps.twitter.com/app/new
+
+to register new OAuth Application. Retrieve your api keys at tab `Keys and Access Tokens` 
+and remember to check `Request email addresses from users` checkbox active in `Permissions` tab.
 
 ## Change log
 
@@ -64,8 +217,10 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Testing
 
+In your Laravel project execute:
+
 ``` bash
-$ composer test
+$ phpunit tests/AcachaLaravelSocial.php
 ```
 
 ## Contributing

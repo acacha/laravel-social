@@ -17,7 +17,7 @@ class ConfigureGoogleSocialLogin extends ConfigureSocialLogin
      */
     protected function infoURL()
     {
-        return '';
+        return 'https://console.developers.google.com';
     }
 
     /**
