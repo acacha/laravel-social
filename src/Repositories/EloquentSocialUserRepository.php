@@ -28,7 +28,8 @@ class EloquentSocialUserRepository implements SocialUserRepository
     public function findOrCreateUser($socialUser)
     {
         if ($authUser = $this->find($socialUser)) {
-            return $authUser->user;
+            if($user = $authUser->user) return $user ;
+            return $this->createUser($socialUser);
         }
 
         $userClass = $this->userModel();
@@ -37,7 +38,8 @@ class EloquentSocialUserRepository implements SocialUserRepository
             return $user;
         }
         $user = $this->createUser($socialUser);
-        return $this->createSocialUser($socialUser,$user->id);
+        $this->createSocialUser($socialUser,$user->id);
+        return $user;
     }
 
     /**
