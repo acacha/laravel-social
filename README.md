@@ -175,6 +175,8 @@ You can enable/disable social providers easily. See following section.
 At class `LaravelSocialServiceProvider` you can modify `$enabled` field to change enabled social providers.
 Also remember to changes your views to add/remove action/links to social auth.
 
+Also you have to change static variable `$socialNetworks` in file ConfigureSocialServicesManager to add your extra social providers.
+
 ### Github ###
 
 The cli wizard will propose you to go to page:
