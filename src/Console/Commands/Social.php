@@ -3,6 +3,7 @@
 namespace Acacha\LaravelSocial\Console\Commands;
 
 use Acacha\LaravelSocial\Contracts\ConfigureSocialServicesFactory;
+use Acacha\LaravelSocial\Services\ConfigureSocialServicesManager;
 use Illuminate\Console\Command;
 
 /**
@@ -54,7 +55,8 @@ class Social extends Command
         $continue = true;
         while ($continue) {
             $socialNetwork =
-                $this->choice('Which social network you wish to configure?', $this->configurator->drivers, 0);
+                $this->choice('Which social network you wish to configure?',
+                    ConfigureSocialServicesManager::$socialNetworks , 0);
             $this->configurator->driver($socialNetwork)->command($this)->execute();
             $continue = $this->confirm('Do you wish to configure other social networks?', true);
         }

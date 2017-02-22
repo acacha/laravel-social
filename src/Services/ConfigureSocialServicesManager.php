@@ -12,13 +12,12 @@ use Illuminate\Support\Manager;
  */
 class ConfigureSocialServicesManager extends Manager implements Factory
 {
-
     /**
      * Supported social networks.
      *
      * @var array
      */
-    public $drivers =  ['Github', 'Facebook','Google','Twitter'];
+    public static $socialNetworks = ['Github', 'Facebook','Google','Twitter'];
 
     /**
      * Create a new manager instance.
