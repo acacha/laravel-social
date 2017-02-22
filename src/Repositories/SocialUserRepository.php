@@ -32,7 +32,7 @@ interface SocialUserRepository
      * @param $userId
      * @return mixed
      */
-    public function createSocialUser($socialUser,$userId);
+    public function createSocialUser($socialUser, $userId);
 
     /**
      * Set provider.

@@ -153,7 +153,7 @@ class LaravelSocialServiceProvider extends ServiceProvider
      */
     private function loadMigrations()
     {
-        $this->loadMigrationsFrom( LARAVELSOCIAL_PATH .'/database/migrations');
+        $this->loadMigrationsFrom(LARAVELSOCIAL_PATH .'/database/migrations');
     }
 
     /**
