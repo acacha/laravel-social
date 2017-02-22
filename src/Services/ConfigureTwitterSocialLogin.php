@@ -36,6 +36,6 @@ class ConfigureTwitterSocialLogin extends ConfigureSocialLogin
     protected function showOptionalAdditionalInfo()
     {
         $this->command->info('Retrieve your api keys at tab (Keys and Access Tokens).');
-        $this->command->info("In tab permissions check 'Request email addresses from users' checkbox".);
+        $this->command->info("In tab permissions check 'Request email addresses from users' checkbox");
     }
 }
