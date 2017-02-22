@@ -13,7 +13,8 @@ trait UserModel
      * Get user model (don't suppose is App\User)
      * @return mixed
      */
-    protected function userModel() {
+    protected function userModel()
+    {
         return config('auth.providers.users.model', config('auth.model', 'App\User'));
     }
 }

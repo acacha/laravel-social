@@ -35,7 +35,7 @@ class MakeSocial extends Command
     {
         $this->info('Laravel social package has added some migration files. Your migrations status is:');
         $this->call('migrate:status');
-        if($this->confirm('Do you want to run migrations?')) {
+        if ($this->confirm('Do you want to run migrations?')) {
             $this->call('migrate');
         }
         $this->call('acacha:social');
