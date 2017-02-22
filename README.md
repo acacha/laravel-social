@@ -7,7 +7,6 @@
 [![Latest Stable Version](https://poser.pugx.org/acacha/laravel-social/v/stable.png)](https://packagist.org/packages/acacha/laravel-social)
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
-[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![StyleCI](https://styleci.io/repos/82290394/shield)](https://styleci.io/repos/82290394)
 
