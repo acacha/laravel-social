@@ -41,7 +41,7 @@ class SocialUser extends Model
      */
     public function __get($key)
     {
-        if (parent::__get($key) == null ) {
+        if (parent::__get($key) == null) {
             return $this->getAttributeFromMeta($key);
         }
         return parent::__get($key);

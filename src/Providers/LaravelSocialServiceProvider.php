@@ -106,10 +106,12 @@ class LaravelSocialServiceProvider extends ServiceProvider
      */
     private function registerConfigureSocialServicesManager()
     {
-        $this->app->singleton(\Acacha\LaravelSocial\Contracts\ConfigureSocialServicesFactory::class,
+        $this->app->singleton(
+            \Acacha\LaravelSocial\Contracts\ConfigureSocialServicesFactory::class,
             function ($app) {
                 return new ConfigureSocialServicesManager($app);
-            });
+            }
+        );
     }
 
     /**
@@ -153,7 +155,7 @@ class LaravelSocialServiceProvider extends ServiceProvider
      */
     private function loadMigrations()
     {
-        $this->loadMigrationsFrom( LARAVELSOCIAL_PATH .'/database/migrations');
+        $this->loadMigrationsFrom(LARAVELSOCIAL_PATH .'/database/migrations');
     }
 
     /**

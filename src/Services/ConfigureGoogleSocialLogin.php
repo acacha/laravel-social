@@ -35,8 +35,10 @@ class ConfigureGoogleSocialLogin extends ConfigureSocialLogin
      */
     protected function showOptionalAdditionalInfo()
     {
-        $this->command->info('See step by step tutorial at: <question>https://blog.damirmiladinov.com/laravel/laravel-5.2-socialite-google-login.html</question>');
+        $this->command->info('See step by step tutorial at:');
+        $this->command->info(' <question>https://blog.damirmiladinov.com/laravel/laravel-5.2-socialite-google-login.html</question>');
         $this->command->info('Remember to enable Google+ API!');
-        $this->command->info('More info at <question>https://developers.google.com/identity/sign-in/web/devconsole-project</question>');
+        $this->command->info('More info at:');
+        $this->command->info(' <question>https://developers.google.com/identity/sign-in/web/devconsole-project</question>');
     }
 }

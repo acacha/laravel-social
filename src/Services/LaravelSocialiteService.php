@@ -94,7 +94,8 @@ class LaravelSocialiteService
         file_put_contents(
             base_path('.env'),
             $this->getEnvironmentFile(),
-            FILE_APPEND | LOCK_EX);
+            FILE_APPEND | LOCK_EX
+        );
     }
 
     /**

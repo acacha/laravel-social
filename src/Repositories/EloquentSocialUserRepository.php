@@ -28,17 +28,19 @@ class EloquentSocialUserRepository implements SocialUserRepository
     public function findOrCreateUser($socialUser)
     {
         if ($authUser = $this->find($socialUser)) {
-            if($user = $authUser->user) return $user ;
+            if ($user = $authUser->user) {
+                return $user ;
+            }
             return $this->createUser($socialUser);
         }
 
         $userClass = $this->userModel();
-        if ($user = $userClass::where('email',$socialUser->email)->first()) {
-            $this->createSocialUser($socialUser,$user->id);
+        if ($user = $userClass::where('email', $socialUser->email)->first()) {
+            $this->createSocialUser($socialUser, $user->id);
             return $user;
         }
         $user = $this->createUser($socialUser);
-        $this->createSocialUser($socialUser,$user->id);
+        $this->createSocialUser($socialUser, $user->id);
         return $user;
     }
 
@@ -61,7 +63,7 @@ class EloquentSocialUserRepository implements SocialUserRepository
      * @param $userId
      * @return mixed
      */
-    public function createSocialUser($socialUser,$userId)
+    public function createSocialUser($socialUser, $userId)
     {
         return SocialUser::create([
             'user_id'     => $userId,
@@ -82,7 +84,7 @@ class EloquentSocialUserRepository implements SocialUserRepository
      */
     private function username()
     {
-        return config('auth.providers.users.field','email');
+        return config('auth.providers.users.field', 'email');
     }
 
     /**
