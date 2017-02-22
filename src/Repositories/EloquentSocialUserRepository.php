@@ -28,9 +28,16 @@ class EloquentSocialUserRepository implements SocialUserRepository
     public function findOrCreateUser($socialUser)
     {
         if ($authUser = $this->find($socialUser)) {
-            return $authUser;
+            return $authUser->user;
         }
-        return $this->createSocialUser($socialUser);
+
+        $userClass = $this->userModel();
+        if ($user = $userClass::where('email',$socialUser->email)->first()) {
+            $this->createSocialUser($socialUser,$user->id);
+            return $user;
+        }
+        $user = $this->createUser($socialUser);
+        return $this->createSocialUser($socialUser,$user->id);
     }
 
     /**
@@ -42,28 +49,28 @@ class EloquentSocialUserRepository implements SocialUserRepository
     public function find($socialUser)
     {
         return SocialUser::where('social_id', $socialUser->id)
-               ->where('social_type', $this->provider)->first()->user();
+               ->where('social_type', $this->provider)->first();
     }
 
     /**
      * Create social user.
      *
      * @param $socialUser
+     * @param $userId
      * @return mixed
      */
-    public function createSocialUser($socialUser)
+    public function createSocialUser($socialUser,$userId)
     {
-        $user = $this->createUser($socialUser);
-        SocialUser::create([
-            'user_id'     => $user->id,
+        return SocialUser::create([
+            'user_id'     => $userId,
             'social_id'   => $socialUser->id,
             'social_type' => $this->provider,
             'nickname'    => $socialUser->nickname,
             'name'        => $socialUser->name,
             'email'       => $socialUser->email,
             'avatar'      => $socialUser->avatar,
+            'meta'        => json_encode($socialUser),
         ]);
-        return $user;
     }
 
     /**

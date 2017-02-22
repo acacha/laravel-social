@@ -29,9 +29,10 @@ interface SocialUserRepository
      * Create social user.
      *
      * @param $socialUser
+     * @param $userId
      * @return mixed
      */
-    public function createSocialUser($socialUser);
+    public function createSocialUser($socialUser,$userId);
 
     /**
      * Set provider.

@@ -27,6 +27,8 @@ class CreateSocialUsersTable extends Migration
             $table->string('email');
             $table->string('avatar')->nullable();
 
+            $table->json('meta');
+
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

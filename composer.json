@@ -19,6 +19,7 @@
     "require": {
         "php": "~5.6|~7.0",
         "acacha/filesystem": "^0.1.1",
+        "doctrine/dbal": "^2.5",
         "laravel/framework": "^5.4",
         "laravel/socialite": "^3.0"
     },
