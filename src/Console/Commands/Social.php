@@ -56,7 +56,7 @@ class Social extends Command
         while ($continue) {
             $socialNetwork =
                 $this->choice('Which social network you wish to configure?',
-                    ConfigureSocialServicesManager::$socialNetworks , 0);
+                    ConfigureSocialServicesManager::$socialNetworks, 0);
             $this->configurator->driver($socialNetwork)->command($this)->execute();
             $continue = $this->confirm('Do you wish to configure other social networks?', true);
         }
