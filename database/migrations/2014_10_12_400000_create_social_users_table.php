@@ -20,7 +20,7 @@ class CreateSocialUsersTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
 
-            $table->integer('social_id')->unsigned();
+            $table->bigInteger('social_id')->unsigned();
             $table->string('social_type');
             $table->string('nickname')->nullable();
             $table->string('name');
