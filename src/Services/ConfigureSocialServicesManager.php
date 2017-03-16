@@ -17,7 +17,7 @@ class ConfigureSocialServicesManager extends Manager implements Factory
      *
      * @var array
      */
-    public static $socialNetworks = ['Github', 'Facebook','Google','Twitter'];
+    public static $socialNetworks = ['Github', 'Facebook','Google','Twitter', 'Linkedin'];
 
     /**
      * Create a new manager instance.
@@ -74,5 +74,14 @@ class ConfigureSocialServicesManager extends Manager implements Factory
     protected function createTwitterDriver()
     {
         return new ConfigureTwitterSocialLogin();
+    }
+
+    /**
+     * Create an instance of the "linkedin" social provider driver.
+     *
+     */
+    protected function createLinkedinDriver()
+    {
+        return new ConfigureLinkedinSocialLogin();
     }
 }

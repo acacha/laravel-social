@@ -70,6 +70,15 @@ class SocialProviderManager extends Manager implements Factory
     }
 
     /**
+     * Create an instance of the "linkedin" social provider driver.
+     *
+     */
+    protected function createLinkedinDriver()
+    {
+        return $this->buildProvider('linkedin');
+    }
+
+    /**
      * Build provider.
      *
      * @param $provider

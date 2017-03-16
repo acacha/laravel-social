@@ -25,7 +25,7 @@ class LaravelSocialServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    public $enabled = ['Github','Facebook','Google','Twitter'];
+    public $enabled = ['Github','Facebook','Google','Twitter', 'Linkedin'];
 
     /**
      * Register the application services.
