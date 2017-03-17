@@ -68,6 +68,7 @@ http://yourappurl.com/auth/github
 http://yourappurl.com/auth/facebook
 http://yourappurl.com/auth/google
 http://yourappurl.com/auth/twitter
+http://yourappurl.com/auth/linkedin
 ```
 
 I recommend you to use [AdminLTE Laravel Package](https://github.com/acacha/adminlte-laravel) for a full working Auth scaffolding with Adminlte bootstrap template. See previous section. 
@@ -99,6 +100,7 @@ php artisan acacha:social
   [1] Facebook
   [2] Google
   [3] Twitter
+  [4] Linkedin
  > 0
   
   Configuring social network Github...
@@ -163,6 +165,7 @@ Laravel social package support by default the following social networks:
 - Facebook
 - Google
 - Twitter
+- Linkedin
 
 Laravel social use [Illuminate\Support\Manager](https://laravel.com/api/5.4/Illuminate/Support/Manager.html) so you can create your own driver and register the driver in LaravelSocialServiceProvider.
 
@@ -211,6 +214,14 @@ https://apps.twitter.com/app/new
 
 to register new OAuth Application. Retrieve your api keys at tab `Keys and Access Tokens` 
 and remember to check `Request email addresses from users` checkbox active in `Permissions` tab.
+
+### Linkedin ###
+
+The cli wizard will propose you to go to page:
+
+https://www.linkedin.com/secure/developer
+
+to register new OAuth Application.
 
 ## Change log
 
