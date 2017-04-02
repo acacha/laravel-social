@@ -131,7 +131,7 @@ class EloquentSocialUserRepository implements SocialUserRepository
         }
         //Github users could have no name use login instead
         if ($socialUser->user['login']) {
-            return $socialUser['login'];
+            return $socialUser->user['login'];
         }
         return 'Change your name';
     }
