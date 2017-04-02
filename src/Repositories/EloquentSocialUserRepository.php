@@ -108,7 +108,7 @@ class EloquentSocialUserRepository implements SocialUserRepository
     private function createUser($socialUser)
     {
         $user = [
-            'name' => $socialUser->name,
+            'name' => $this->validName($socialUser),
             'email' => $socialUser->email,
         ];
         if ($this->username() === 'username') {
@@ -116,5 +116,19 @@ class EloquentSocialUserRepository implements SocialUserRepository
         }
         $userClass = $this->userModel();
         return $userClass::create($user);
+    }
+
+    /**
+     * Provides always a valid (for database) name.
+     *
+     * @param $socialUser
+     * @return mixed
+     */
+    private function validName($socialUser)
+    {
+        if ($socialUser->name) return $socialUser->name;
+        //Github users could have no name use login instead
+        if ($socialUser->login) return $socialUser->login;
+        return 'Change your name';
     }
 }
