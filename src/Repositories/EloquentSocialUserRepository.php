@@ -126,9 +126,13 @@ class EloquentSocialUserRepository implements SocialUserRepository
      */
     private function validName($socialUser)
     {
-        if ($socialUser->name) return $socialUser->name;
+        if ($socialUser->name) {
+            return $socialUser->name;
+        }
         //Github users could have no name use login instead
-        if ($socialUser->user->login) return $socialUser->login;
+        if ($socialUser->user->login) {
+            return $socialUser->login;
+        }
         return 'Change your name';
     }
 }
