@@ -18,7 +18,7 @@ class AdaptUsersTableToSocialLogin extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('password')->nullable()->change();
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->unique()->nullable()->change();;
         });
     }
 
