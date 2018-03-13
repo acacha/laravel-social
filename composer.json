@@ -49,5 +49,10 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "laravel": {
+        "providers": [
+            "Acacha\\LaravelSocial\\Providers\\LaravelSocialServiceProvider"
+        ]
     }
 }

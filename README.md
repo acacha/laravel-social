@@ -19,7 +19,7 @@ A Laravel 5 package for **OAuth Social Login/Register** implementation using [La
 Install [AdminLTE Laravel package](https://github.com/acacha/adminlte-laravel):
 
 ```bash
-composer global require "acacha/adminlte-laravel-installer=~3.0"
+composer global require "acacha/adminlte-laravel-installer"
 laravel new awesome
 cd awesome
 adminlte-laravel install
@@ -37,7 +37,6 @@ llum boot
 Use Composer, in you Laravel project:
 
 ``` bash
-$ composer global require "acacha/llum=~1.0"
 $ composer require acacha/laravel-social
 ```
 
@@ -81,14 +80,6 @@ php artisan make:auth
 
 And manually add button/links to social Login/Register.
 
-### Use llum
-
-You can also use `llum package` command to install this package (see [acacha/llum](https://github.com/acacha/llum)):
-
-```bash
-llum package laravel-social
-```
-
 ## Usage
 
 You can configure Social Providers with command:
@@ -116,8 +107,6 @@ php artisan acacha:social
    OAuth client redirect URL? [http://localhost:8080/auth/github/callback]:
    > 
    
-  File /home/sergi/Code/socialAdminLTEtest/config/app.php already supports llum.
-  Llum is already installed. Skipping...
   File /home/sergi/Code/socialAdminLTEtest/config/services.php updated.
   Github added to config/services.php file
   
@@ -135,13 +124,7 @@ repeated data in your config files).
 Please install [AdminLTE Laravel](https://github.com/acacha/adminlte-laravel):
 
 ```bash
-composer global require "acacha/adminlte-laravel-installer=~3.0"
-```
-
-You can also use this package without adminlte but hen you have to install [acacha/llum](https://github.com/acacha/llum) before using this package:
-
-```bash
-composer global require "acacha/llum=~1.0"
+composer global require "acacha/adminlte-laravel-installer"
 ```
 
 This package also requires (all installed using composer):
